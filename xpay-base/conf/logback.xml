@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 基本按时间滚动的策略 -->
+	<appender name="defaultLogFile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>../logs/xpay/xpay.log</file>
+		<!-- 只有大于等于本级别才记录日志 -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>../logs/xpay/xpay.%d{yyyy-MM-dd}.%i.zip</fileNamePattern>
+			<!-- 保留 30天数据，默认无限 -->
+			<maxHistory>30</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<!--log4jdbc -->
+	<logger name="jdbc.sqltiming" level="INFO" />
+
+	<logger name="org.springframework" level="INFO" />
+
+	<logger name="org.quartz" level="ERROR" />
+
+	<logger name="org.dozer" level="ERROR" />
+
+	<logger name="org.apache" level="ERROR" />
+	
+	<logger name="org.apache" level="ERROR" />
+
+	<logger name="org.mybatis.spring" level="ERROR" />
+
+	<logger name="freemarker.cache" level="ERROR" />
+	
+	<logger name="com.atomikos" level="ERROR" />
+
+	<root level="DEBUG">
+		<appender-ref ref="console" />
+		<appender-ref ref="defaultLogFile" />
+	</root>
+</configuration>

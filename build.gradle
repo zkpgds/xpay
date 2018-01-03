@@ -1,0 +1,126 @@
+allprojects {
+	
+	group = "org.tcl"
+	version = "1.0.0-SNAPSHOT"
+}
+
+subprojects {
+	
+	apply plugin: "java"
+	apply plugin: "eclipse"
+	
+	sourceSets {
+		main {
+			java {
+				srcDir "src"
+				srcDir "conf"
+			}
+		}
+	}
+
+	// JVM 版本号要求
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+    
+    // java编译的时候缺省状态下会因为中文字符而失败
+    [compileJava,compileTestJava,javadoc]*.options*.encoding = "UTF-8"
+	
+	tasks.withType(JavaCompile) {
+		options.encoding = "UTF-8"
+	}
+    
+    repositories {
+		maven {
+	        url "http://10.120.198.6/nexus/content/groups/public/"
+	    }
+		mavenCentral()
+	}
+	
+	configurations.all {
+	    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+	}
+	
+	// 引入其他的gradle脚本
+	 apply from: "${rootProject.projectDir}/package.gradle"
+
+	dependencies {
+		// spring jar
+		compile "org.xserver:xserver-start:3.0.9-SNAPSHOT"
+	}
+}
+
+project(":xpay-commons") {
+	description = "xpay-commons"
+	dependencies {
+		compile "org.springframework:spring-web:4.3.8.RELEASE"
+		compile "org.springframework:spring-test:4.3.8.RELEASE"
+		compile "org.springframework:spring-jdbc:4.3.8.RELEASE"
+		compile "commons-codec:commons-codec:1.10"
+		compile "junit:junit:4.12"
+		compile "org.mybatis:mybatis:3.4.4"
+		compile "org.springside:springside-core:4.2.2.GA"
+		compile "org.springframework.data:spring-data-redis:1.7.4.RELEASE"
+		compile "com.alibaba:druid:0.2.23"
+		compile "org.mybatis:mybatis-spring:1.3.0"
+		compile "org.jasypt:jasypt:1.9.2"
+		compile "net.sf.dozer:dozer:5.5.1"
+		compile "joda-time:joda-time:2.8.1"
+		compile "com.alibaba:fastjson:1.2.6"
+	}
+}
+
+project(":xpay-model") {
+	description = "xpay-model"
+	dependencies {
+		compile project(":xpay-base")
+	}
+}
+
+project(":xpay-vo") {
+	description = "xpay-vo"
+		dependencies {
+		compile project(":xpay-base")
+	}
+}
+
+project(":xpay-base") {
+	description = "xpay-base"
+	dependencies {
+	    compile "org.xserver:XServer-ds:4.0.0-SNAPSHOT"
+		compile project(":xpay-commons")
+	    compile "javax.servlet:javax.servlet-api:3.1.0"
+		compile "org.springframework:spring-webmvc:4.2.5.RELEASE"
+		compile "javax.validation:validation-api:1.1.0.Final"
+	}
+}
+
+project(":xpay-dao") {
+	description = "xpay-dao"
+	dependencies {
+		compile project(":xpay-model")
+		compile project(":xpay-vo")
+	}
+}
+
+project(":xpay-service") {
+	description = "xpay-service"
+	dependencies {
+		compile project(":xpay-dao")
+	}
+}
+
+project(":xpay-controller") {
+	description = "xpay-controller"
+	dependencies {
+		compile project(":xpay-service")
+	}
+}
+
+project(":xpay-test") {
+	description = "xpay-test"
+	dependencies {
+	    compile "mysql:mysql-connector-java:5.1.22"
+		compile project(":xpay-service")
+		compile project(":xpay-service")
+	}
+}

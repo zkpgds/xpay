@@ -1,0 +1,35 @@
+/*DDL 信息*/------------
+
+CREATE TABLE `t_pay` (
+  `id` int(11) NOT NULL COMMENT '主键',
+  `merchant_no` varchar(50) DEFAULT NULL COMMENT '商户编号',
+  `out_trade_no` varchar(50) DEFAULT NULL COMMENT '业务订单号',
+  `out_trade_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '业务订单创建时间',
+  `out_notify_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '通知业务时间',
+  `out_notify_url` varchar(1024) DEFAULT NULL COMMENT '业务回调地址',
+  `out_trade_source` varchar(10) DEFAULT NULL COMMENT '业务订单来源',
+  `out_trade_ext` varchar(1024) DEFAULT NULL COMMENT '业务扩展（JSON串）',
+  `out_notify_status` varchar(10) DEFAULT NULL COMMENT '优惠券id',
+  `trade_no` varchar(50) DEFAULT NULL COMMENT '支付订单号',
+  `pay_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '支付时间',
+  `pay_status` varchar(10) DEFAULT NULL COMMENT '支付状态（待支付、已支付、退款）',
+  `channel_trade_no` varchar(50) DEFAULT NULL COMMENT '渠道交易号（一级渠道 微信、支付宝、银行）',
+  `channel_trade_no_proxy` varchar(50) DEFAULT NULL COMMENT '代理渠道交易号（通联、汇银通）',
+  `channel_merchant_no` varchar(50) DEFAULT NULL COMMENT '渠道商户号',
+  `channel_route` varchar(10) DEFAULT NULL COMMENT '渠道路由（通联、汇银通、微信、支付宝、银行）',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '订单创建时间',
+  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  `channel_pay_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '渠道支付通知时间（例如：通联收到支付宝通知的时间，或者支付宝收到银行通知的时间）',
+  `total_amount` decimal(16,2) DEFAULT NULL COMMENT '总金额',
+  `pay_amount` decimal(16,2) DEFAULT NULL COMMENT '支付金额',
+  `discount_amount` decimal(16,2) DEFAULT NULL COMMENT '折扣金额',
+  `version` varchar(4) DEFAULT NULL COMMENT '版本号',
+  `user_id` varchar(50) DEFAULT NULL COMMENT '用户id',
+  `user_rel_id` varchar(50) DEFAULT NULL COMMENT '用户关联id',
+  `user_type` varchar(4) DEFAULT NULL COMMENT '用户类型',
+  `nickname` varchar(100) DEFAULT NULL COMMENT '用户昵称',
+  `app_id` varchar(50) DEFAULT NULL COMMENT '商户应用编码',
+  `third_app_mark` varchar(255) DEFAULT NULL COMMENT '第三方用户标识',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='支付订单表'
+

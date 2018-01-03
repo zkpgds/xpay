@@ -1,0 +1,51 @@
+
+compileJava.destinationDir = file("build/classes/main")
+
+def dest = 'release'
+def aim = 'data/source/lib'
+
+//依赖编译，然后打包JAR
+task taskJar(type:Jar, dependsOn: compileJava) {
+    from 'build/classes/main'
+    destinationDir = file('build/libs')
+}
+
+//清除上次的编译过的文件
+task clearPj(type:Delete){
+   delete dest
+}
+
+//把JAR复制到目标目录
+task release(type: Copy,dependsOn: [clearPj, taskJar]) {
+    from('build/libs') {
+        include '*.jar'
+    }
+    into dest
+    
+    from configurations.runtime  {
+        include 'ff-*.jar'
+    }
+	into dest
+}
+
+//把JAR复制到目标目录
+task release_all(type: Copy,dependsOn: [clearPj, taskJar]) {
+	from('build/libs') {
+		include '*.jar'
+	}
+	into dest
+	
+	from configurations.runtime
+	into dest
+}
+
+//把JAR复制到目标目录
+task allCmd(type: Copy,dependsOn: [clearPj, taskJar]) {
+	from('build/libs') {
+		include '*.jar'
+	}
+	into aim
+	
+	from configurations.runtime
+	into aim
+}

@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.tcl.xpay.dao.ITpayDAO" >
+    <resultMap id="RM_Tpay" type="com.tcl.xpay.model.Tpay">
+        <result property="id" column="id"/>
+        <result property="merchantNo" column="merchant_no"/>
+        <result property="outTradeNo" column="out_trade_no"/>
+        <result property="outTradeTime" column="out_trade_time"/>
+        <result property="outNotifyTime" column="out_notify_time"/>
+        <result property="outNotifyUrl" column="out_notify_url"/>
+        <result property="outTradeSource" column="out_trade_source"/>
+        <result property="outTradeExt" column="out_trade_ext"/>
+        <result property="outNotifyStatus" column="out_notify_status"/>
+        <result property="tradeNo" column="trade_no"/>
+        <result property="payTime" column="pay_time"/>
+        <result property="payStatus" column="pay_status"/>
+        <result property="channelTradeNo" column="channel_trade_no"/>
+        <result property="channelTradeNoProxy" column="channel_trade_no_proxy"/>
+        <result property="channelMerchantNo" column="channel_merchant_no"/>
+        <result property="channelRoute" column="channel_route"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="channelPayTime" column="channel_pay_time"/>
+        <result property="totalAmount" column="total_amount"/>
+        <result property="payAmount" column="pay_amount"/>
+        <result property="discountAmount" column="discount_amount"/>
+        <result property="version" column="version"/>
+        <result property="userId" column="user_id"/>
+        <result property="userRelId" column="user_rel_id"/>
+        <result property="userType" column="user_type"/>
+        <result property="nickname" column="nickname"/>
+        <result property="appId" column="app_id"/>
+        <result property="thirdAppMark" column="third_app_mark"/>
+	</resultMap>
+	
+	<resultMap id="RM_TpayVO" type="com.tcl.xpay.vo.TpayVO" extends="RM_Tpay" >
+	
+	</resultMap>
+	
+	<sql id="columns">
+	    <![CDATA[
+		id,merchant_no,out_trade_no,out_trade_time,out_notify_time,out_notify_url,out_trade_source,out_trade_ext,out_notify_status,
+		trade_no,pay_time,pay_status,channel_trade_no,channel_trade_no_proxy,channel_merchant_no,channel_route,create_time,
+		update_time,channel_pay_time,total_amount,pay_amount,discount_amount,version,user_id,user_rel_id,user_type,nickname,app_id,
+		third_app_mark
+	    ]]>
+	</sql>
+
+	<sql id="where">
+		<where>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.id)"> AND id = #{paramBean.id} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.merchantNo)"> AND merchant_no = #{paramBean.merchantNo} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.outTradeNo)"> AND out_trade_no = #{paramBean.outTradeNo} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.outTradeTime)"> AND out_trade_time = #{paramBean.outTradeTime} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.outNotifyTime)"> AND out_notify_time = #{paramBean.outNotifyTime} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.outNotifyUrl)"> AND out_notify_url = #{paramBean.outNotifyUrl} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.outTradeSource)"> AND out_trade_source = #{paramBean.outTradeSource} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.outTradeExt)"> AND out_trade_ext = #{paramBean.outTradeExt} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.outNotifyStatus)"> AND out_notify_status = #{paramBean.outNotifyStatus} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.tradeNo)"> AND trade_no = #{paramBean.tradeNo} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.payTime)"> AND pay_time = #{paramBean.payTime} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.payStatus)"> AND pay_status = #{paramBean.payStatus} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.channelTradeNo)"> AND channel_trade_no = #{paramBean.channelTradeNo} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.channelTradeNoProxy)"> AND channel_trade_no_proxy = #{paramBean.channelTradeNoProxy} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.channelMerchantNo)"> AND channel_merchant_no = #{paramBean.channelMerchantNo} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.channelRoute)"> AND channel_route = #{paramBean.channelRoute} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.createTime)"> AND create_time = #{paramBean.createTime} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.updateTime)"> AND update_time = #{paramBean.updateTime} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.channelPayTime)"> AND channel_pay_time = #{paramBean.channelPayTime} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.totalAmount)"> AND total_amount = #{paramBean.totalAmount} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.payAmount)"> AND pay_amount = #{paramBean.payAmount} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.discountAmount)"> AND discount_amount = #{paramBean.discountAmount} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.version)"> AND version = #{paramBean.version} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.userId)"> AND user_id = #{paramBean.userId} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.userRelId)"> AND user_rel_id = #{paramBean.userRelId} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.userType)"> AND user_type = #{paramBean.userType} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.nickname)"> AND nickname = #{paramBean.nickname} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.appId)"> AND app_id = #{paramBean.appId} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.thirdAppMark)"> AND third_app_mark = #{paramBean.thirdAppMark} </if>
+	    </where>
+	</sql>
+	
+	<insert id="insert" keyProperty="id">
+        INSERT INTO t_pay (
+         <if test="@Ognl@isNotEmpty(id)">id</if>
+         <if test="@Ognl@isNotEmpty(merchantNo)">,merchant_no</if>
+         <if test="@Ognl@isNotEmpty(outTradeNo)">,out_trade_no</if>
+         <if test="@Ognl@isNotEmpty(outTradeTime)">,out_trade_time</if>
+         <if test="@Ognl@isNotEmpty(outNotifyTime)">,out_notify_time</if>
+         <if test="@Ognl@isNotEmpty(outNotifyUrl)">,out_notify_url</if>
+         <if test="@Ognl@isNotEmpty(outTradeSource)">,out_trade_source</if>
+         <if test="@Ognl@isNotEmpty(outTradeExt)">,out_trade_ext</if>
+         <if test="@Ognl@isNotEmpty(outNotifyStatus)">,out_notify_status</if>
+         <if test="@Ognl@isNotEmpty(tradeNo)">,trade_no</if>
+         <if test="@Ognl@isNotEmpty(payTime)">,pay_time</if>
+         <if test="@Ognl@isNotEmpty(payStatus)">,pay_status</if>
+         <if test="@Ognl@isNotEmpty(channelTradeNo)">,channel_trade_no</if>
+         <if test="@Ognl@isNotEmpty(channelTradeNoProxy)">,channel_trade_no_proxy</if>
+         <if test="@Ognl@isNotEmpty(channelMerchantNo)">,channel_merchant_no</if>
+         <if test="@Ognl@isNotEmpty(channelRoute)">,channel_route</if>
+         <if test="@Ognl@isNotEmpty(createTime)">,create_time</if>
+         <if test="@Ognl@isNotEmpty(updateTime)">,update_time</if>
+         <if test="@Ognl@isNotEmpty(channelPayTime)">,channel_pay_time</if>
+         <if test="@Ognl@isNotEmpty(totalAmount)">,total_amount</if>
+         <if test="@Ognl@isNotEmpty(payAmount)">,pay_amount</if>
+         <if test="@Ognl@isNotEmpty(discountAmount)">,discount_amount</if>
+         <if test="@Ognl@isNotEmpty(version)">,version</if>
+         <if test="@Ognl@isNotEmpty(userId)">,user_id</if>
+         <if test="@Ognl@isNotEmpty(userRelId)">,user_rel_id</if>
+         <if test="@Ognl@isNotEmpty(userType)">,user_type</if>
+         <if test="@Ognl@isNotEmpty(nickname)">,nickname</if>
+         <if test="@Ognl@isNotEmpty(appId)">,app_id</if>
+         <if test="@Ognl@isNotEmpty(thirdAppMark)">,third_app_mark</if>
+        ) VALUES (
+        <if test="@Ognl@isNotEmpty(id)">#{id}</if>
+        <if test="@Ognl@isNotEmpty(merchantNo)">,#{merchantNo}</if>
+        <if test="@Ognl@isNotEmpty(outTradeNo)">,#{outTradeNo}</if>
+        <if test="@Ognl@isNotEmpty(outTradeTime)">,#{outTradeTime}</if>
+        <if test="@Ognl@isNotEmpty(outNotifyTime)">,#{outNotifyTime}</if>
+        <if test="@Ognl@isNotEmpty(outNotifyUrl)">,#{outNotifyUrl}</if>
+        <if test="@Ognl@isNotEmpty(outTradeSource)">,#{outTradeSource}</if>
+        <if test="@Ognl@isNotEmpty(outTradeExt)">,#{outTradeExt}</if>
+        <if test="@Ognl@isNotEmpty(outNotifyStatus)">,#{outNotifyStatus}</if>
+        <if test="@Ognl@isNotEmpty(tradeNo)">,#{tradeNo}</if>
+        <if test="@Ognl@isNotEmpty(payTime)">,#{payTime}</if>
+        <if test="@Ognl@isNotEmpty(payStatus)">,#{payStatus}</if>
+        <if test="@Ognl@isNotEmpty(channelTradeNo)">,#{channelTradeNo}</if>
+        <if test="@Ognl@isNotEmpty(channelTradeNoProxy)">,#{channelTradeNoProxy}</if>
+        <if test="@Ognl@isNotEmpty(channelMerchantNo)">,#{channelMerchantNo}</if>
+        <if test="@Ognl@isNotEmpty(channelRoute)">,#{channelRoute}</if>
+        <if test="@Ognl@isNotEmpty(createTime)">,#{createTime}</if>
+        <if test="@Ognl@isNotEmpty(updateTime)">,#{updateTime}</if>
+        <if test="@Ognl@isNotEmpty(channelPayTime)">,#{channelPayTime}</if>
+        <if test="@Ognl@isNotEmpty(totalAmount)">,#{totalAmount}</if>
+        <if test="@Ognl@isNotEmpty(payAmount)">,#{payAmount}</if>
+        <if test="@Ognl@isNotEmpty(discountAmount)">,#{discountAmount}</if>
+        <if test="@Ognl@isNotEmpty(version)">,#{version}</if>
+        <if test="@Ognl@isNotEmpty(userId)">,#{userId}</if>
+        <if test="@Ognl@isNotEmpty(userRelId)">,#{userRelId}</if>
+        <if test="@Ognl@isNotEmpty(userType)">,#{userType}</if>
+        <if test="@Ognl@isNotEmpty(nickname)">,#{nickname}</if>
+        <if test="@Ognl@isNotEmpty(appId)">,#{appId}</if>
+        <if test="@Ognl@isNotEmpty(thirdAppMark)">,#{thirdAppMark}</if>
+        )
+	</insert>
+
+    <insert id="batchInsert" keyProperty="id">
+        INSERT INTO t_pay (
+            id
+            ,merchant_no
+            ,out_trade_no
+            ,out_trade_time
+            ,out_notify_time
+            ,out_notify_url
+            ,out_trade_source
+            ,out_trade_ext
+            ,out_notify_status
+            ,trade_no
+            ,pay_time
+            ,pay_status
+            ,channel_trade_no
+            ,channel_trade_no_proxy
+            ,channel_merchant_no
+            ,channel_route
+            ,create_time
+            ,update_time
+            ,channel_pay_time
+            ,total_amount
+            ,pay_amount
+            ,discount_amount
+            ,version
+            ,user_id
+            ,user_rel_id
+            ,user_type
+            ,nickname
+            ,app_id
+            ,third_app_mark
+        ) VALUES
+        <foreach collection="entities" item="entity" index="index" separator="," >
+        (
+            #{entity.id}
+            ,#{entity.merchantNo}
+            ,#{entity.outTradeNo}
+            ,#{entity.outTradeTime}
+            ,#{entity.outNotifyTime}
+            ,#{entity.outNotifyUrl}
+            ,#{entity.outTradeSource}
+            ,#{entity.outTradeExt}
+            ,#{entity.outNotifyStatus}
+            ,#{entity.tradeNo}
+            ,#{entity.payTime}
+            ,#{entity.payStatus}
+            ,#{entity.channelTradeNo}
+            ,#{entity.channelTradeNoProxy}
+            ,#{entity.channelMerchantNo}
+            ,#{entity.channelRoute}
+            ,#{entity.createTime}
+            ,#{entity.updateTime}
+            ,#{entity.channelPayTime}
+            ,#{entity.totalAmount}
+            ,#{entity.payAmount}
+            ,#{entity.discountAmount}
+            ,#{entity.version}
+            ,#{entity.userId}
+            ,#{entity.userRelId}
+            ,#{entity.userType}
+            ,#{entity.nickname}
+            ,#{entity.appId}
+            ,#{entity.thirdAppMark}
+        )
+        </foreach>
+    </insert>
+    
+	<update id="update" >
+    <![CDATA[
+        UPDATE t_pay SET
+	        merchant_no = #{merchantNo} ,
+	        out_trade_no = #{outTradeNo} ,
+	        out_trade_time = #{outTradeTime} ,
+	        out_notify_time = #{outNotifyTime} ,
+	        out_notify_url = #{outNotifyUrl} ,
+	        out_trade_source = #{outTradeSource} ,
+	        out_trade_ext = #{outTradeExt} ,
+	        out_notify_status = #{outNotifyStatus} ,
+	        trade_no = #{tradeNo} ,
+	        pay_time = #{payTime} ,
+	        pay_status = #{payStatus} ,
+	        channel_trade_no = #{channelTradeNo} ,
+	        channel_trade_no_proxy = #{channelTradeNoProxy} ,
+	        channel_merchant_no = #{channelMerchantNo} ,
+	        channel_route = #{channelRoute} ,
+	        create_time = #{createTime} ,
+	        update_time = #{updateTime} ,
+	        channel_pay_time = #{channelPayTime} ,
+	        total_amount = #{totalAmount} ,
+	        pay_amount = #{payAmount} ,
+	        discount_amount = #{discountAmount} ,
+	        version = #{version} ,
+	        user_id = #{userId} ,
+	        user_rel_id = #{userRelId} ,
+	        user_type = #{userType} ,
+	        nickname = #{nickname} ,
+	        app_id = #{appId} ,
+	        third_app_mark = #{thirdAppMark} 
+        WHERE 
+	        id = #{id} 
+    ]]>
+	</update>
+
+    <delete id="deleteById">
+    <![CDATA[
+        DELETE FROM t_pay WHERE
+        id = #{id} 
+    ]]>
+    </delete>
+    
+    <delete id="deleteByIds" >
+        DELETE FROM t_pay WHERE 
+        	id IN 
+        	<foreach collection="ids" item="id" open="(" close=")" separator="," >#{id} </foreach>
+    </delete>
+    
+    <select id="findById" resultMap="RM_TpayVO">
+		SELECT <include refid="columns"></include> 
+	    <![CDATA[
+		    FROM t_pay
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+	</select>
+	
+    <select id="findPageCount" resultType="long">
+        SELECT count(*) FROM t_pay 
+		<include refid="where"/>    
+    </select>
+    
+    <select id="findPage" resultMap="RM_TpayVO">
+    	SELECT * FROM t_pay 
+		<include refid="where"/>
+		<if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderBy)">
+			ORDER BY ${orderBean.orderBy} ${orderBean.order}
+		</if>
+    </select>
+    
+    <sql id="findBySql">
+    	SELECT * FROM t_pay 
+		<include refid="where"/>
+    </sql>
+    
+    <select id="findBy" resultMap="RM_TpayVO">
+    	<include refid="findBySql"/>
+    </select>
+    
+    <select id="findUniqueBy" resultMap="RM_TpayVO">
+    	<include refid="findBySql"/>
+    </select>
+    
+    <select id="findVO" resultMap="RM_TpayVO">
+	   SELECT id,merchant_no,out_trade_no,out_trade_time,out_notify_time
+	    <![CDATA[
+		    FROM t_pay
+	        WHERE 
+		     id = #{id} 
+	    ]]>
+	</select>
+	
+	<update id="updateById" >
+	 <![CDATA[
+        UPDATE t_pay SET
+	        merchant_no = #{merchantNo} ,
+	        app_id = #{appId} ,
+	        third_app_mark = #{thirdAppMark} 
+        WHERE 
+	        id = #{id} 
+    ]]>
+	</update>
+	
+	
+    
+	
+</mapper>
+

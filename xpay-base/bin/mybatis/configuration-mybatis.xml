@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<!-- 按需加载对象属性 -->
+		<setting name="lazyLoadingEnabled" value="true"/>  
+        <setting name="aggressiveLazyLoading" value="false"/> 
+        <setting name="mapUnderscoreToCamelCase" value="true"/> 
+	</settings>
+	<typeAliases>
+	</typeAliases>
+	
+	<typeHandlers>
+<!--  	<typeHandler handler="com.cnws.framework.dao.mybatis.type.SerializableTypeHandler" javaType="java.io.Serializable"/> -->
+<!-- 	<typeHandler handler="org.taky.framework.dao.mybatis.type.OracleTimeStampTypeHandler" javaType="oracle.sql.TIMESTAMP"/> -->
+	</typeHandlers> 
+	 
+	<plugins>
+		<plugin interceptor="com.tcl.xpay.commons.mybatis.dialect.SQLDialectInterceptor">
+			<property name="dialect_class" value="com.tcl.xpay.commons.mybatis.dialect.MySQLDialect"/>
+		</plugin>
+	</plugins> 
+</configuration>
